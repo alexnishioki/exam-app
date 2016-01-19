@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<title>Galvanize Reads</title>
+	</head>
+	<body>
+		<div class="navbar navbar-inverse">
+			<div class='container-fluid'>
+				<h1>Galvanize Reads</h1>
+			</div>
+		</div>
+			<div class='col-md-6'>
+		</div>
+			<div class='col-md-6'>
+			<div class='row'>
+				<% data.forEach(function(book) { %>
+					<h1><%= book.book %></h1>
+				<% }) %>
+			</div>
+				<h2 style='color:red;'>genre: </h2>
+			<% data.forEach(function(genre) { %>
+					<h3><%= genre.genre %></h3>
+				<% }) %>
+			<h2 style='color:red;'>description: </h2>
+			<% data.forEach(function(description) { %>
+					<h3><%= description.description %></h3>
+				<% }) %>
+			</div>
+		</div>
+			<div class='col-md-2'>
+
+				<a style='float:right' href='/books' type='submit'>edit book</a>
+				</a>
+			</div>
+		</body>
+	</html>

@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<title>Galvanize Reads</title>
+	</head>
+	<body style='text-align:left;'>
+		<div class="navbar navbar-inverse">
+			<div class='container-fluid'>
+				<h1>Galvanize Reads</h1>
+			</div>
+		</div>
+			<div id="Auth" class="col-md-6">
+				<form style='margin:20px' method='post' action='/authors'>
+					<label for='text'>new author</label>
+						<input type='text' id='authors' name='authors'>
+							<button type='submit'>add author</button>
+						</form style='margin:20px'>
+							<% data.forEach(function(author) { %>
+								<li><%= author.author %></li>
+									<% }) %>
+						<form style='margin:20px' method='post' action='/authors/update'>
+							<label for='text'>update</label>
+								<input type='text' id='update' name='author'>
+								<input type='text' name='update'>
+									<button type='submit'>update Author</button>
+								</form>
+							<form style='margin:20px' method='post' action='/authors/delete'>
+								<label for='text'>del</label>
+									<input type='text' name='delete'>
+										<button type='submit'>delete</button>
+									</form>		
+										<div>
+											<a href='/authorDisplay' type='submit'>submit author</a>
+											<a href='/bookDisplay' type='submit'>check books</a>
+
+										</div>
+									</div>
+								</html>
+							</body>	

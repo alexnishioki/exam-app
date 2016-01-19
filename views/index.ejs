@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+	<head>
+		<link rel='stylesheet' href='/stylesheets/style.css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<title>Galvanize Reads</title>
+	</head>
+	<body>
+		<div class="navbar navbar-inverse">
+			<div class='container-fluid'>
+				<h1>Galvanize Reads</h1>
+			</div>
+		</div>
+		<div id="mainB" class="col-md-6">
+		<form method='post' action='/books'>
+			<label for='title'></label>
+				<input type='text' id='books' name='books'>
+					<button type='submit'>add title</button>
+				</form>
+			<% data.forEach(function(book) { %>
+				<li><%= book.book %></li>
+					<% }) %>
+		<form method='post' action='/books/genre'>
+			<label for='genre'></label>
+				<input type='text' id='genre' name='genre'>
+					<button type='submit'>add genre</button>
+				</form>
+				<% data.forEach(function(genre) { %>
+				<li><%= genre.genre %></li>
+					<% }) %>
+		<form method='post' action='/books/description'>
+			<label for='description'></label>
+				<input type='text' id='description' name='description'>
+					<button type='submit'>add description</button>
+				</form>
+				<% data.forEach(function(description) { %>
+				<li><%= description.description %></li>
+					<% }) %>
+				<form method='post' action='/books/update'>
+					<label for='text'>update</label>
+						<input type='text' id='update' name='book'>
+						<input type='text' name='update'>
+							<button type='submit'>update book</button>
+						</form>
+					<form method='post' action='/books/delete'>
+						<label for='delete'>delete</label>
+							<input type='text' name='delete'>
+								<button type='submit'>delete</button>
+							</form>
+						</div>
+						<div>
+							<a href='/bookDisplay' type='submit'>submit book</a>
+							<div class="row">
+							<a href='/authorDisplay' type='submit'>Authors</a>
+						</div>
+					</div>
+				</html>
+			</body>
+
+					

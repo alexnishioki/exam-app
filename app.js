@@ -1,60 +1,140 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var path = require('path');
+var pg = require('pg');
+var knex = require('./db/knex');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.set('view engine', 'ejs');
+//app.set('views', path.join(__dirname, 'views'));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+//main page
 
-// error handlers
+app.get('/',function(req,res,next) {
+  res.render('main')
+})
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
+//  books
+//....................................................................
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
+app.get('/books',function(req,res,next) {
+  knex('books').select('*').then(function(data) {
+    console.log(data)
+    res.render('index',{data:data})
+  })
+})
+
+
+app.post('/books/genre', function(req, res, next) {
+  var genre = req.body.genre
+  knex('books').insert({genre:genre}).then(function() {
+      res.redirect('/books')
   });
 });
 
+app.post('/books/description', function(req, res, next) {
+  var description = req.body.description
+  knex('books').insert({description:description}).then(function() {
+      res.redirect('/books')
+  });
+});
 
-module.exports = app;
+app.get('/bookDisplay',function(req,res,next) {
+  knex('books').select('*').then(function(data) {
+    console.log(data)
+    res.render('bookDisplay',{data:data})
+  })
+})
+
+app.get('/booksDisplay',function(req,res,next) {
+  knex('books').select('*').then(function(genre) {
+    console.log(genre)
+    res.render('bookDisplay',{genre:genre})
+  })
+})
+
+app.get('/booksDisplay',function(req,res,next) {
+  knex('books').select('*').then(function(description) {
+    console.log(description)
+    res.render('bookDisplay',{description:description})
+  })
+})
+
+
+app.post('/books', function(req, res, next) {
+  var books = req.body.books
+  knex('books').insert({book:books}).then(function() {
+      res.redirect('/books')
+  });
+});
+
+app.post('/books/update',function(req,res,next) {
+  var book = req.body.book
+  var update = req.body.update
+
+  knex('books').where({book:book}).update({book:update}).then(function() {
+    res.redirect('/books')
+  })
+})
+
+app.post('/books/delete',function(req,res,next) {
+  var del = req.body.delete
+
+  knex('books').where({book:del}).del().then(function() {
+    res.redirect('/books')
+  })
+})
+
+//  authors
+//....................................................................
+
+
+app.get('/authors',function(req,res,next) {
+  knex('authors').select('*').then(function(data) {
+    console.log(data)
+    res.render('authors',{data:data})
+  })
+})
+
+app.get('/authorDisplay',function(req,res,next) {
+  knex('authors').select('*').then(function(data) {
+    console.log(data)
+    res.render('authorDisplay',{data:data})
+  })
+})
+
+app.post('/authors', function(req, res, next) {
+  var authors = req.body.authors
+  knex('authors').insert({author:authors}).then(function() {
+      res.redirect('/authors')
+  });
+});
+
+app.post('/authors/update',function(req,res,next) {
+  var author = req.body.author
+  var update = req.body.update
+
+  knex('authors').where({author:author}).update({author:update}).then(function() {
+    res.redirect('/authors')
+  })
+})
+
+app.post('/authors/delete',function(req,res,next) {
+  var del = req.body.delete
+  knex('authors').where({author:del}).del().then(function() {
+    res.redirect('/authors')
+  })
+})
+
+app.listen('8000',function() {
+  console.log('word')
+})
+//module.exports = app;
+

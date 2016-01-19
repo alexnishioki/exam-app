@@ -1,0 +1,1 @@
+Here's my Galvanize Reads app. I still need to link all the files and buttons together correctly, add images url's, and make everything look nicer. The routes weren't working correctly so everything is inside app.js, seperated by comments.
